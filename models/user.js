@@ -41,7 +41,6 @@ userSchema.pre("save", function(next){
     const hashedPassword= createHmac('sha256', salt)
                .update(user.password)
                .digest('hex');
-
                    user.salt = salt; // <-- yeh line add karein
     user.password = hashedPassword;
 
@@ -52,6 +51,8 @@ userSchema.methods.matchPassword = function(password){
    const hashed=createHmac("sha256",this.salt)
    .update(password)
    .digest("hex");
+
+   
 
    return this.password===hashed;
 }
